@@ -1,0 +1,18 @@
+.card {
+  position: relative;
+  flex-direction: row;
+  /* flex: 0 240px 240px; */
+  flex-wrap: wrap;
+  width: 240px;
+  /* height: 320px; */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* #products {
+  flex-wrap: wrap;
+} */
+
+.container {
+  padding: 2px 16px;
+}
