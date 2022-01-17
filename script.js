@@ -4,25 +4,25 @@ let products = JSON.parse(localStorage.getItem("products"))
       {
         title: "Kookabuura Ghost Pro Players Elite Cricket Bat (Short Handle)",
         category: "Kookabuura",
-        price: "R15 999.00",
+        price: 15999.0,
         image: "https://i.postimg.cc/tR2j1kV1/Ghost-Pro-Players-Bat.jpg",
       },
       {
         title: "Kookaburra Pace PRO 3.0 Junior Cricket Bat",
         category: "Kookabuura",
-        price: "R2 499.00",
+        price: 2499.0,
         image: "https://i.postimg.cc/KY7g20FN/Pace-3-0-Cricket-bat.jpg",
       },
       {
         title: "Kookaburra Kahuna Players Junior Cricket Bat",
         category: "Kookabuura",
-        price: "R4 999.00",
+        price: 499.0,
         image: "https://i.postimg.cc/2yPTb0tt/Kahuna-Pro-Players-Bat.jpg",
       },
       {
         title: "Kookaburra Ghost PRO 1500 Junior Bat (Harrow)",
         category: "Kookabuura",
-        price: "R1 999.00",
+        price: 1999.0,
         image:
           "https://i.postimg.cc/NjwFb1vv/2-A19193-Ghost-Lite-Bat-Grouped.png",
       },
@@ -30,53 +30,53 @@ let products = JSON.parse(localStorage.getItem("products"))
         title:
           "Gray-Nicolls Kane Williamson Delta Players Edition Bat (Short Handle)",
         category: "Gray-Nicolls",
-        price: "R14 999.00",
+        price: 14999.0,
         image:
           "https://i.postimg.cc/cCgBSPmz/Gray-Nicholls-Kane-Williamson.jpg",
       },
       {
         title: "Gray-Nicolls Classic GN5 Big Edge Cricket Bat (Short Handle)",
         category: "Gray-Nicolls",
-        price: "R6 999.00",
+        price: 6999.0,
         image:
           "https://i.postimg.cc/kgB6hWTj/gray-nicolls-classic-gn5-big-edge-english-willow-cricket-bat-size-sh-ethlits-com-1.jpg",
       },
       {
         title: "Gray-Nicolls Kaboom 100 Cricket Bat",
         category: "Gray-Nicolls",
-        price: "R5 999.00",
+        price: 5999.0,
         image:
           "https://i.postimg.cc/rskZfVcJ/gray-nicolls-kaboom-100-english-willow-cricket-bat-size-sh-ethlits-com-1.jpg",
       },
       {
         title: "Gray Nicolls Cricket Bat",
         category: "Gray-Nicolls",
-        price: "R511.16",
+        price: 511.16,
         image: "https://i.postimg.cc/Cx3GGvwC/02.jpg",
       },
       {
         title: "GM Diamond 909 (2021)",
         category: "GM",
-        price: "R4 476.52",
+        price: 4476.52,
         image: "https://i.postimg.cc/MTVdfvND/thumbnail-img-5555.jpg",
       },
       {
         title: "Siren Original Limited Edition Junior Cricket Bat",
         category: "GM",
-        price: "R4 220,14",
+        price: 4220.14,
         image: "https://i.postimg.cc/KY7g20FN/Pace-3-0-Cricket-bat.jpg",
       },
       {
         title: "MAESTRO PRO LE GM BAT",
         category: "GM",
-        price: "R15 095,85",
+        price: 15095.85,
         image:
           "https://i.postimg.cc/hv7ztdYD/GM-maestro-LE-cricket-bat-640x640.jpg",
       },
       {
         title: "GM NOIR DXM 909 TTNOW CRICKET BAT SENIOR",
         category: "GM",
-        price: "R13 145,02 ",
+        price: 13145.02,
         image: "https://i.postimg.cc/cL1Dr1sq/noirback-l.jpg",
       },
     ];
@@ -99,7 +99,7 @@ function read(products) {
   <div class="container">
     <h4><b>${product.title}</b></h4> 
     <p>${product.price}</p> 
-
+    <input type="number" name="Quantity" class="form control mb-2" id="updateCart(${position})" min="1" value="1">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update-modal-${position}" onclick ="updateProduct(${position})">Update</button>
         <button class="btn btn-danger" onclick ="deleteProduct(${position})">Delete</button>
         <button class="btn btn-danger" onclick ="addToCart(${position})">Add to Cart</button>
@@ -199,7 +199,7 @@ function deleteProduct(position) {
 // ADD to Cart
 
 function addToCart(position) {
-  let qty = document.querySelector(`#addToCart${position}`).value;
+  let qty = document.querySelector(`#update-price-${position}`).value;
   let added = false;
   cart.forEach((product) => {
     if (product.title == products[position].title) {
@@ -216,10 +216,63 @@ function addToCart(position) {
       `You have successfully added ${qty} ${products[position].title} to the cart`
     );
   }
-  
-  showCartBadge();
+
+  // showCartBadge();
 
   localStorage.setItem("cart", JSON.stringify(cart));
   // console.log(cart);
   // localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// Update Cart Badge
+// function showCartBadge() {
+//   document.querySelector("#badge").innerHTML = cart ? cart.length : "";
+// }
+
+// SORT BY CATEGORY
+function sortCategory() {
+  let category = document.querySelector("#sortCategory").value;
+
+  if (category == "All") {
+    return read(products);
+  }
+
+  let foundProducts = products.filter((product) => {
+    return product.category == category;
+  });
+
+  read(foundProducts);
+  console.log(foundProducts);
+}
+
+// SORT BY NAME
+
+function sortName() {
+  let direction = document.querySelector("#sortName").value;
+
+  let sortedProducts = products.sort((a, b) => {
+    if (a.title.toLowerCase() < b.title.toLowerCase()) {
+      return -1;
+    }
+    if (a.title.toLowerCase() > b.title.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
+  if (direction == "Descending") sortedProducts.reverse();
+  console.log(sortedProducts);
+  read(products);
+}
+
+// SORT BY PRICE
+
+function priceSort() {
+  console.log(products);
+  let direction = document.querySelector("#priceSort").value;
+
+  let sortedPrice = products.sort((a, b) => a.price - b.price);
+
+  if (direction == "Descending") sortedPrice.reverse();
+
+  read(sortedPrice);
 }
