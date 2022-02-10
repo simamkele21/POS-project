@@ -98,8 +98,8 @@ function read(products) {
   <img src=${product.image} alt="Avatar" style="width:100%">
   <div class="container">
     <h4><b>${product.title}</b></h4> 
-    <p>${product.price}</p> 
-    <input type="number" name="Quantity" class="form control mb-2" id="updateCart(${position})" min="1" value="1">
+    <p>R${product.price}</p> 
+    <input type="number" name="Quantity" class="form control mb-2" id="updateCart(${product.qty})" min="1" value="1">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update-modal-${position}" onclick ="updateProduct(${position})">Update</button>
         <button class="btn btn-danger" onclick ="deleteProduct(${position})">Delete</button>
         <button class="btn btn-danger" onclick ="addToCart(${position})">Add to Cart</button>
@@ -121,7 +121,7 @@ function read(products) {
       <option value="Gary-Nicolls">Gray-Nicolls</option>
       <option value="GM">GM</option>
     </select><br>
-    PRICE<input type="text" id="update-price-${position}" value=""/><br>
+    PRICE<input type="text" id="update-price-R${position}" value=""/><br>
     IMAGE LINK<input type="text" id="update-image-${position}" value=""/><br>
               </div>
               <div class="modal-footer">
